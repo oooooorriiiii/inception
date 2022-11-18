@@ -17,6 +17,9 @@ RUN set -eux; \
     tar -xzf wordpress.tar.gz -C /usr/src/; \
     rm wordpress.tar.gz
 
-VOLUME /var/www/html
+COPY ./wordpress-setup.sh /usr/local/bin/wordpress-setup.sh
+RUN chmod +x /usr/local/bin/wordpress-setup.sh && ./usr/local/bin/wordpress-setup.sh
+
+VOLUME /usr/src/wordpress
 
 CMD ["bin/bash"]
