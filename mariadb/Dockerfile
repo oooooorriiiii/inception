@@ -6,10 +6,9 @@ RUN set -x && \
     rm -rf /var/lib/apt/lists/*
 
 RUN set -x && \
-    mkdir /run/mysqld && \
-    chown -R mysql:mysql /run/mysqld && \
-    mkdir /docker-entrypoint-initdb.d && \
-    ln -sf /dev/stderr /var/log/mysql/error.log
+    mkdir -p /var/run/mysqld && \
+    chown -R mysql:mysql /var/run/mysqld && \
+    chmod 777 /var/run/mysqld
 
 VOLUME /var/lib/mysql
 
