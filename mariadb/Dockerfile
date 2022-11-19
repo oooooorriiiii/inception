@@ -6,12 +6,17 @@ RUN set -x && \
     rm -rf /var/lib/apt/lists/*
 
 RUN set -x && \
-    mkdir -p /var/run/mysqld && \
-    chown -R mysql:mysql /var/run/mysqld && \
-    chmod 777 /var/run/mysqld
+    mkdir /run/mysqld && \
+    chown -R mysql:mysql /run/mysqld && \
+    mkdir /docker-entrypoint-initdb.d && \
+    ln -sf /dev/stderr /var/log/mysql/error.log
 
 VOLUME /var/lib/mysql
 
-EXPOSE  3306
+COPY ./mariadb-setup.sh /usr/local/bin/mariadb-setup.sh
+COPY ./50-server.cnf /etc/mysql/mariadb.conf.d/50-server.cnf
 
+ENTRYPOINT [ "mariadb-setup.sh" ]
+
+EXPOSE 3306
 CMD ["mysqld"]
