@@ -44,6 +44,7 @@ services:
       WP_DB_NAME: ${WP_DB_NAME}
       WP_DB_USER: ${WP_DB_USER}
       WP_DB_PASSWORD: ${WP_DB_PASSWORD}
+      WP_DB_ROOT_PASSWORD: ${WP_DB_ROOT_PASSWORD}
 
 
 volumes:
