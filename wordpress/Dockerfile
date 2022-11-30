@@ -1,12 +1,78 @@
-FROM debian:bullseye-slim
+FROM alpine:3.14
+
+ENV DB_HOST="127.0.0.1"
 
 # https://make.wordpress.org/hosting/handbook/server-environment/
-RUN apt-get update && apt-get -y install \
-        wget \
-        curl \
-        php \
-        php-fpm \
-        mariadb-client
+RUN apk update && apk upgrade && apk add --no-cache \
+    wget \
+    tar \
+    mariadb-client \
+    php7 \
+    php7-fpm \
+    php7-bcmath \
+    php7-bz2 \
+    php7-calendar		\
+    php7-ctype			\
+    php7-curl			\
+    php7-dom			\
+    php7-exif			\
+    php7-fileinfo		\
+    php7-gd				\
+    php7-gmagick		\
+    php7-gmp			\
+    php7-iconv			\
+    php7-imap			\
+    php7-intl			\
+    php7-json			\
+    php7-mbstring		\
+    php7-mcrypt			\
+    php7-memcache		\
+    php7-mysqli			\
+    php7-mysqlnd		\
+    php7-openssl		\
+    php7-pcntl			\
+    php7-pdo			\
+    php7-pdo_mysql		\
+    php7-pdo_pgsql		\
+    php7-pdo_sqlite 	\
+    php7-pgsql			\
+    php7-phar			\
+    php7-posix			\
+    php7-session		\
+    php7-shmop			\
+    php7-simplexml		\
+    php7-soap			\
+    php7-sockets		\
+    php7-sodium			\
+    php7-sqlite3		\
+    php7-sysvsem		\
+    php7-sysvshm		\
+    php7-tokenizer		\
+    php7-xml			\
+    php7-xmlreader		\
+    php7-xmlwriter		\
+    php7-xsl			\
+    php7-zip			\
+    php7-zlib	
+
+RUN adduser -S nginx && addgroup -S nginx
+COPY ./php-fpm.conf /etc/php7/php-fpm.conf
+COPY ./www.conf /etc/php7/php-fpm.d/www.conf
+
+RUN wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar \
+	&& chmod +x wp-cli.phar && mv wp-cli.phar /usr/local/bin/wp && chmod +x /usr/local/bin/wp
+
+WORKDIR /var/www/html/worpress
+
+COPY ./wordpress-setup.sh /tmp/wordpress-setup.sh
+
+CMD ["sh", "/tmp/wordpress-setup.sh"]
+# RUN apt-get update && apt-get -y install \
+#         wget \
+#         curl \
+#         php \
+#         php-fpm \
+#         mariadb-client
 
 
 # RUN  groupadd -r nginx && useradd -r -g nginx nginx
@@ -14,16 +80,19 @@ RUN apt-get update && apt-get -y install \
 # COPY php-fpm.conf /etc/php/7.4/fpm/php-fpm.conf
 # COPY www.conf /etc/php/7.4/php-fpm.d/www.conf
 
-RUN set -eux && \
-    wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar && \
-    chmod +x wp-cli.phar && \
-    mv wp-cli.phar /usr/local/bin/wp && \
-    chmod +x /usr/local/bin/wp
+# RUN set -eux && \
+#     wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar && \
+#     chmod +x wp-cli.phar && \
+#     mv wp-cli.phar /usr/local/bin/wp && \
+#     chmod +x /usr/local/bin/wp
 
-COPY www.conf /etc/php/7.4/fpm/pool.d/www.conf
+# COPY www.conf /etc/php/7.4/fpm/pool.d/www.conf
 
-WORKDIR /var/www/html/wordpress
+# WORKDIR /var/www/html/wordpress
 
-COPY ./wordpress-setup.sh /usr/local/bin/wordpress-setup.sh
+# COPY ./wordpress-setup.sh /usr/local/bin/wordpress-setup.sh
+# ENTRYPOINT [ "wordpress-setup.sh" ]
 
-CMD ["sh", "/usr/local/bin/wordpress-setup.sh"]
+# EXPOSE 9000
+
+# CMD ["php-fpm7.4", "-F"]

@@ -1,66 +1,139 @@
 version: '3'
 
-services:
-  nginx:
-    depends_on:
-      - wordpress
-    container_name: nginx
-    build: ./nginx
-    volumes:
-      - web_data:/var/www/html
-    networks:
-      - public
-    ports:
-      - 80:80
-      - 443:443
-    restart: always
+# services:
+#   nginx:
+#     depends_on:
+#       - wordpress
+#     container_name: nginx
+#     build: ./nginx
+#     volumes:
+#       - web_data:/var/www/html
+#     networks:
+#       - public
+#     ports:
+#       - 80:80
+#       - 443:443
+#     restart: always
 
-  wordpress:
-    depends_on:
-      - mariadb
-    container_name: wordpress
-    build: ./wordpress
-    volumes:
-      - web_data:/var/www/html
-    networks:
-      - public
-      - private
-    environment:
-      MYSQL_HOST: ${MYSQL_HOST}
-      WP_DB_NAME: ${WP_DB_NAME}
-      WP_DB_USER: ${WP_DB_USER}
-      WP_DB_PASSWORD: ${WP_DB_PASSWORD}
+#   wordpress:
+#     depends_on:
+#       - mariadb
+#     container_name: wordpress
+#     build: ./wordpress
+#     volumes:
+#       - web_data:/var/www/html
+#     networks:
+#       - public
+#       - private
+#     environment:
+#       MYSQL_HOST: ${MYSQL_HOST}
+#       WP_DB_NAME: ${WP_DB_NAME}
+#       WP_DB_USER: ${WP_DB_USER}
+#       WP_DB_PASSWORD: ${WP_DB_PASSWORD}
+#       WP_PATH: ${WP_PATH}
   
-  mariadb:
-    container_name: mariadb
-    build: ./mariadb
-    volumes:
-      - db_data:/var/lib/mysql
-    networks:
-      - private
-    restart: always
-    environment:
-      MYSQL_HOST: ${MYSQL_HOST}
-      WP_DB_NAME: ${WP_DB_NAME}
-      WP_DB_USER: ${WP_DB_USER}
-      WP_DB_PASSWORD: ${WP_DB_PASSWORD}
-      WP_DB_ROOT_PASSWORD: ${WP_DB_ROOT_PASSWORD}
+#   mariadb:
+#     container_name: mariadb
+#     build: ./mariadb
+#     volumes:
+#       - db_data:/var/lib/mysql
+#     networks:
+#       - private
+#     restart: always
+#     environment:
+#       MYSQL_HOST: ${MYSQL_HOST}
+#       WP_DB_NAME: ${WP_DB_NAME}
+#       WP_DB_USER: ${WP_DB_USER}
+#       WP_DB_PASSWORD: ${WP_DB_PASSWORD}
+#       WP_DB_ROOT_PASSWORD: ${WP_DB_ROOT_PASSWORD}
 
+
+# volumes:
+#   web_data:
+#     driver: local
+#     driver_opts:
+#       type: none
+#       device: ${HOME}/data/inception_data/web_data
+#       o: bind
+#   db_data:
+#     driver: local
+#     driver_opts:
+#       type: none
+#       device: ${HOME}/data/inception_data/db_data
+#       o: bind
+
+# networks:
+#   public:
+#   private:
+
+services:
+    nginx:
+        depends_on:
+            - wordpress
+        build: ./nginx
+        container_name: nginx
+        volumes:
+            - web_data:/var/www/html
+        networks:
+            - public
+        ports:
+            - "80:80"
+            - "443:443"
+        restart: always
+    wordpress:
+        depends_on:
+            - mariadb
+        build: ./wordpress
+        container_name: wordpress
+        volumes:
+            - web_data:/var/www/html
+        networks:
+            - public
+            - private
+        environment:
+            DOMAIN_NAME: ${DOMAIN_NAME}
+            MYSQL_HOST: ${MYSQL_HOST}
+            WP_DB_NAME: ${WP_DB_NAME}
+            WP_DB_USER: ${WP_DB_USER}
+            WP_DB_PASSWORD: ${WP_DB_PASSWORD}
+            WP_TITLE: ${WP_TITLE}
+            WP_ADMIN_USER: ${WP_ADMIN_USER}
+            WP_ADMIN_PASSWORD: ${WP_ADMIN_PASSWORD}
+            WP_ADMIN_EMAIL: ${WP_ADMIN_EMAIL}
+            WP_USER: ${WP_USER}
+            WP_PASSWORD: ${WP_PASSWORD}
+            WP_EMAIL: ${WP_EMAIL}
+            WP_FILE_ONINSTALL: ${WP_FILE_ONINSTALL}
+            REDIS_HOST: ${REDIS_HOST}
+            REDIS_PASSWORD: ${REDIS_PASSWORD}
+    mariadb:
+        build: ./mariadb
+        container_name: mariadb
+        volumes:
+            - db_data:/var/lib/mysql
+        networks:
+            - private
+        restart: always
+        environment:
+            MYSQL_HOST: ${MYSQL_HOST}
+            MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+            WP_DB_NAME: ${WP_DB_NAME}
+            WP_DB_USER: ${WP_DB_USER}
+            WP_DB_PASSWORD: ${WP_DB_PASSWORD}
 
 volumes:
-  web_data:
-    driver: local
-    driver_opts:
-      type: none
-      device: /home/web_data
-      o: bind
-  db_data:
-    driver: local
-    driver_opts:
-      type: none
-      device: /home/db_data
-      o: bind
-
+    db_data:
+        driver: local
+        driver_opts:
+            type: none
+            o: bind
+            device: ${PWD}/data/inception_data/db_data
+    web_data:
+        driver: local
+        driver_opts:
+            type: none
+            o: bind
+            device: ${PWD}/data/inception_data/web_data
 networks:
-  public:
-  private:
+    public:
+    private:
