@@ -73,7 +73,7 @@ services:
         build: ./nginx
         container_name: nginx
         volumes:
-            - web_data:/var/www/html
+            - ./data/web_data:/var/www/html
         networks:
             - public
         ports:
@@ -86,7 +86,7 @@ services:
         build: ./wordpress
         container_name: wordpress
         volumes:
-            - web_data:/var/www/html
+            - ./data/web_data:/var/www/html
         networks:
             - public
             - private
@@ -110,7 +110,7 @@ services:
         build: ./mariadb
         container_name: mariadb
         volumes:
-            - db_data:/var/lib/mysql
+            - ./data/db_data:/var/lib/mysql
         networks:
             - private
         restart: always
@@ -121,19 +121,19 @@ services:
             WP_DB_USER: ${WP_DB_USER}
             WP_DB_PASSWORD: ${WP_DB_PASSWORD}
 
-volumes:
-    db_data:
-        driver: local
-        driver_opts:
-            type: none
-            o: bind
-            device: ${PWD}/data/inception_data/db_data
-    web_data:
-        driver: local
-        driver_opts:
-            type: none
-            o: bind
-            device: ${PWD}/data/inception_data/web_data
+# volumes:
+#     db_data:
+#         driver: local
+#         driver_opts:
+#             type: none
+#             o: bind
+#             device: ~/workspace/inception/data/inception_data/db_data
+#     web_data:
+#         driver: local
+#         driver_opts:
+#             type: none
+#             o: bind
+#             device: ~/workspace/inception/data/inception_data/web_data
 networks:
     public:
     private:
