@@ -9,9 +9,7 @@ RUN apk update && apk upgrade && apk add --no-cache \
     tar \
     mariadb-client \
     php8 \
-    php8-fpm
-
-RUN apk add --no-cache \
+    php8-fpm \
     php8-bcmath \
     php8-exif \
     php8-gd \
