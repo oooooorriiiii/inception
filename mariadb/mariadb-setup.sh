@@ -17,7 +17,6 @@ if [ -d /var/lib/mysql/mysql ]; then
 else
 	echo "[INFO] mysql data directory not found, creating initial DBs"
 	chown -R mysql /var/lib/mysql
-	#mysql_install_db --user=mysql --ldata=/var/lib/mysql > /dev/null
 	mysql_install_db --user=mysql --basedir=/usr --datadir=/var/lib/mysql --rpm > /dev/null
 
 	TEMP_FILE=`/tmp/mysql-first-time.sql`
@@ -50,4 +49,3 @@ sed -i "s|.*skip-networking.*|# skip-networking|g" /etc/my.cnf.d/mariadb-server.
 sed -i "s|.*bind-address\s*=.*|bind-address=0.0.0.0|g" /etc/my.cnf.d/mariadb-server.cnf
 
 exec /usr/bin/mysqld --user=mysql --console
-#/usr/bin/mysql root -p$MYSQL_ROOT_PASSWORD < $tfile
