@@ -1,26 +1,17 @@
-VOLUMES_PATH := ${PWD}/data/inception_data
-VOLUMES_DIR := db_data web_data
-
-VOLUMES := $(addprefix $(VOLUMES_PATH)/, $(VOLUMES_DIR))
-
 all: stop load
 
-load: $(VOLUMES)
+load:
 	docker-compose build --no-cache
 	docker-compose --env-file ./.env up
 
 stop:
 	docker-compose -f docker-compose.yml --env-file ./.env down
 
-$(VOLUMES):
-	mkdir -p $(VOLUMES)
-
 clean: stop
-	docker volume rm $(addprefix srcs_, $(VOLUMES_DIR)) -f
 	docker volume prune -f
-	rm -rf $(VOLUMES_PATH) || rm -rf $(VOLUMES)
 
 prune: clean
+	docker volume rm inception_db_data inception_web_data
 	docker system prune -f
 
 re: prune load
