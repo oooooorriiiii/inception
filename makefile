@@ -11,8 +11,9 @@ clean: stop
 	docker volume prune -f
 
 prune: clean
-	docker volume rm inception_db_data inception_web_data
 	docker system prune -f
+
+# docker volume rm inception_db_data inception_web_data
 
 re: prune load
 
