@@ -43,7 +43,6 @@ FLUSH PRIVILEGES ;
 EOF
 
 	/usr/bin/mysqld --user=mysql --bootstrap < $tfile
-	ps -ef > /out_2.txt
 	echo "[INFO] mysql init process done. Ready for start up."
 fi
 
