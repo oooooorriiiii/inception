@@ -6,7 +6,8 @@ VOLUMES := $(addprefix $(VOLUMES_PATH)/, $(VOLUMES_DIR))
 all: stop load
 
 load: $(VOLUMES)
-	docker-compose -f docker-compose.yml --env-file ./.env up --build
+	docker-compose build --no-cache
+	docker-compose --env-file ./.env up
 
 stop:
 	docker-compose -f docker-compose.yml --env-file ./.env down
