@@ -16,7 +16,7 @@ if [ ! -f "/var/www/html/$WP_FILE_ONINSTALL" ]; then
         --dbname=$WP_DB_NAME \
         --dbuser=$WP_DB_USER \
         --dbpass=$WP_DB_PASSWORD \
-        --dbhost=$MYSQL_HOST \
+		--dbhost=$MYSQL_HOST \
         --dbcharset="utf8" \
         --dbcollate="utf8_general_ci" \
         --allow-root
@@ -32,19 +32,16 @@ if [ ! -f "/var/www/html/$WP_FILE_ONINSTALL" ]; then
         --role=author \
         --user_pass=$WP_PASSWORD \
         --allow-root
-	# wp theme install ryu --activate --allow-root
 
 	# redis
-    sed -i "40i define('WP_REDIS_HOST', '$REDIS_HOST');" wp-config.php
-    sed -i "41i define('WP_REDIS_PORT', 6379);" wp-config.php
-    sed -i "42i define('WP_REDIS_PASSWORD', '$REDIS_PWD');" wp-config.php
-    sed -i "43i define('WP_REDIS_TIMEOUT', 1);" wp-config.php
-    sed -i "44i define('WP_REDIS_READ_TIMEOUT', 1);" wp-config.php
-    sed -i "45i define('WP_REDIS_DATABASE', 0);\n" wp-config.php
-	sed -i "46i define('WP_CACHE', true);" wp-config.php
-
-	# install redir plugin to wordpress
-    wp plugin install redis-cache --activate --allow-root
+    # sed -i "40i define('WP_REDIS_HOST', '$REDIS_HOST');" wp-config.php
+    # sed -i "41i define('WP_REDIS_PORT', 6379);" wp-config.php
+    # sed -i "42i define('WP_REDIS_PASSWORD', '$REDIS_PWD');" wp-config.php
+    # sed -i "43i define('WP_REDIS_TIMEOUT', 1);" wp-config.php
+    # sed -i "44i define('WP_REDIS_READ_TIMEOUT', 1);" wp-config.php
+    # sed -i "45i define('WP_REDIS_DATABASE', 0);\n" wp-config.php
+	# sed -i "46i define('WP_CACHE', true);" wp-config.php
+    # wp plugin install redis-cache --activate --allow-root
 
 	# update plugins
     wp plugin update --all --allow-root
