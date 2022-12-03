@@ -51,8 +51,8 @@ if [ ! -f "/var/www/html/$WP_FILE_ONINSTALL" ]; then
 fi
 
 # enable redis
-wp redis enable --allow-root
+# wp redis enable --allow-root
 
 echo "[INFO] starting php-fpm..."
 mkdir -p /var/run/php-fpm7
-php-fpm7 --nodaemonize
+php-fpm8 --nodaemonize

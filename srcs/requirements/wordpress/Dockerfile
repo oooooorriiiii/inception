@@ -1,66 +1,34 @@
-FROM alpine:3.14
+FROM alpine:3.16
 
 ENV DB_HOST="127.0.0.1"
 
 # https://make.wordpress.org/hosting/handbook/server-environment/
+# https://pkgs.org/
 RUN apk update && apk upgrade && apk add --no-cache \
     wget \
     tar \
     mariadb-client \
-    php7 \
-    php7-fpm \
-    php7-bcmath \
-    php7-bz2 \
-    php7-calendar		\
-    php7-ctype			\
-    php7-curl			\
-    php7-dom			\
-    php7-exif			\
-    php7-fileinfo		\
-    php7-gd				\
-    php7-gmagick		\
-    php7-gmp			\
-    php7-iconv			\
-    php7-imap			\
-    php7-intl			\
-    php7-json			\
-    php7-mbstring		\
-    php7-mcrypt			\
-    php7-memcache		\
-    php7-mysqli			\
-    php7-mysqlnd		\
-    php7-openssl		\
-    php7-pcntl			\
-    php7-pdo			\
-    php7-pdo_mysql		\
-    php7-pdo_pgsql		\
-    php7-pdo_sqlite 	\
-    php7-pgsql			\
-    php7-phar			\
-    php7-posix			\
-    php7-session		\
-    php7-shmop			\
-    php7-simplexml		\
-    php7-soap			\
-    php7-sockets		\
-    php7-sodium			\
-    php7-sqlite3		\
-    php7-sysvsem		\
-    php7-sysvshm		\
-    php7-tokenizer		\
-    php7-xml			\
-    php7-xmlreader		\
-    php7-xmlwriter		\
-    php7-xsl			\
-    php7-zip			\
-    php7-zlib	
+    php8 \
+    php8-fpm
+
+RUN apk add --no-cache \
+    php8-bcmath \
+    php8-exif \
+    php8-gd \
+    php8-intl \
+    php8-mysqli \
+    php8-pear \
+    php8-phar \
+    php8-zip
 
 RUN adduser -S nginx && addgroup -S nginx
-COPY ./conf/php-fpm.conf /etc/php7/php-fpm.conf
-COPY ./conf/www.conf /etc/php7/php-fpm.d/www.conf
+COPY ./conf/php-fpm.conf /etc/php8/php-fpm.conf
+COPY ./conf/www.conf /etc/php8/php-fpm.d/www.conf
 
 RUN wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar \
-	&& chmod +x wp-cli.phar && mv wp-cli.phar /usr/local/bin/wp && chmod +x /usr/local/bin/wp
+	&& chmod +x wp-cli.phar \
+    && mv wp-cli.phar /usr/local/bin/wp \
+    && chmod +x /usr/local/bin/wp
 
 WORKDIR /var/www/html/worpress
 
