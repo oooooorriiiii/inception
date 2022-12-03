@@ -1,4 +1,4 @@
-!/bin/sh
+#!/bin/sh
 
 # create mysql
 if [ -d "/run/mysql" ]; then
