@@ -17,7 +17,6 @@ if [ -d /var/lib/mysql/mysql ]; then
 else
 	echo "[INFO] mysql data directory not found, creating initial DBs"
 	chown -R mysql /var/lib/mysql
-	#mysql_install_db --user=mysql --ldata=/var/lib/mysql > /dev/null
 	mysql_install_db --user=mysql --basedir=/usr --datadir=/var/lib/mysql --rpm > /dev/null
 
 	tfile=`mktemp`

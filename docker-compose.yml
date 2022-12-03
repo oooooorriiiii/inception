@@ -1,71 +1,5 @@
 version: '3'
 
-# services:
-#   nginx:
-#     depends_on:
-#       - wordpress
-#     container_name: nginx
-#     build: ./nginx
-#     volumes:
-#       - web_data:/var/www/html
-#     networks:
-#       - public
-#     ports:
-#       - 80:80
-#       - 443:443
-#     restart: always
-
-#   wordpress:
-#     depends_on:
-#       - mariadb
-#     container_name: wordpress
-#     build: ./wordpress
-#     volumes:
-#       - web_data:/var/www/html
-#     networks:
-#       - public
-#       - private
-#     environment:
-#       MYSQL_HOST: ${MYSQL_HOST}
-#       WP_DB_NAME: ${WP_DB_NAME}
-#       WP_DB_USER: ${WP_DB_USER}
-#       WP_DB_PASSWORD: ${WP_DB_PASSWORD}
-#       WP_PATH: ${WP_PATH}
-  
-#   mariadb:
-#     container_name: mariadb
-#     build: ./mariadb
-#     volumes:
-#       - db_data:/var/lib/mysql
-#     networks:
-#       - private
-#     restart: always
-#     environment:
-#       MYSQL_HOST: ${MYSQL_HOST}
-#       WP_DB_NAME: ${WP_DB_NAME}
-#       WP_DB_USER: ${WP_DB_USER}
-#       WP_DB_PASSWORD: ${WP_DB_PASSWORD}
-#       WP_DB_ROOT_PASSWORD: ${WP_DB_ROOT_PASSWORD}
-
-
-# volumes:
-#   web_data:
-#     driver: local
-#     driver_opts:
-#       type: none
-#       device: ${HOME}/data/inception_data/web_data
-#       o: bind
-#   db_data:
-#     driver: local
-#     driver_opts:
-#       type: none
-#       device: ${HOME}/data/inception_data/db_data
-#       o: bind
-
-# networks:
-#   public:
-#   private:
-
 services:
     nginx:
         depends_on:
@@ -121,19 +55,6 @@ services:
             WP_DB_USER: ${WP_DB_USER}
             WP_DB_PASSWORD: ${WP_DB_PASSWORD}
 
-# volumes:
-#     db_data:
-#         driver: local
-#         driver_opts:
-#             type: none
-#             o: bind
-#             device: ~/workspace/inception/data/inception_data/db_data
-#     web_data:
-#         driver: local
-#         driver_opts:
-#             type: none
-#             o: bind
-#             device: ~/workspace/inception/data/inception_data/web_data
 networks:
     public:
     private:
