@@ -20,12 +20,12 @@ else
 	#mysql_install_db --user=mysql --ldata=/var/lib/mysql > /dev/null
 	mysql_install_db --user=mysql --basedir=/usr --datadir=/var/lib/mysql --rpm > /dev/null
 
-	tfile=`mktemp`
-	if [ ! -f "$tfile" ]; then
+	TEMP_FILE=`/tmp/mysql-first-time.sql`
+	if [ ! -f "$TEMP_FILE" ]; then
 		return 1
 	fi
 
-	cat << EOF > $tfile
+	cat > "$TEMP_FILE" << EOF
 USE mysql ;
 FLUSH PRIVILEGES ;
 DROP DATABASE IF EXISTS test ;
@@ -41,7 +41,7 @@ GRANT ALL PRIVILEGES ON *.* TO '$WP_DB_USER'@'localhost';
 GRANT ALL PRIVILEGES ON *.* TO '$WP_DB_USER'@'%';
 FLUSH PRIVILEGES ;
 EOF
-	/usr/bin/mysqld --user=mysql --bootstrap < $tfile
+	/usr/bin/mysqld --user=mysql --bootstrap < $TEMP_FILE
 	echo "[INFO] mysql init process done. Ready for start up."
 fi
 
