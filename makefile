@@ -1,11 +1,11 @@
 all: stop load
 
 load:
-	docker-compose build --no-cache
-	docker-compose --env-file ./.env up
+	docker-compose -f ./srcs/docker-compose.yml build --no-cache
+	docker-compose -f ./srcs/docker-compose.yml --env-file ./srcs/.env up
 
 stop:
-	docker-compose -f docker-compose.yml --env-file ./.env down
+	docker-compose -f ./srcs/docker-compose.yml --env-file ./srcs/.env down
 
 clean: stop
 	docker volume prune -f
