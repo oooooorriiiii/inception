@@ -4,7 +4,7 @@ services:
     nginx:
         depends_on:
             - wordpress
-        build: ./nginx
+        build: ./requirements/nginx
         container_name: nginx
         volumes:
             - /home/ymori/data/web_data:/var/www/html
@@ -16,7 +16,7 @@ services:
     wordpress:
         depends_on:
             - mariadb
-        build: ./wordpress
+        build: ./requirements/wordpress
         container_name: wordpress
         volumes:
             - /home/ymori/data/web_data:/var/www/html
@@ -40,7 +40,7 @@ services:
             REDIS_HOST: ${REDIS_HOST}
             REDIS_PASSWORD: ${REDIS_PASSWORD}
     mariadb:
-        build: ./mariadb
+        build: ./requirements/mariadb
         container_name: mariadb
         volumes:
             - /home/ymori/data/db_data:/var/lib/mysql
