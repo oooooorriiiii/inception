@@ -55,4 +55,5 @@ fi
 
 echo "[INFO] starting php-fpm..."
 mkdir -p /var/run/php-fpm7
-php-fpm8 --nodaemonize
+
+exec "$@"

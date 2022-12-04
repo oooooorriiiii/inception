@@ -31,5 +31,8 @@ RUN wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.ph
 WORKDIR /var/www/html/worpress
 
 COPY ./wordpress-setup.sh /tmp/wordpress-setup.sh
+RUN chmod +x /tmp/wordpress-setup.sh
 
-CMD ["sh", "/tmp/wordpress-setup.sh"]
+ENTRYPOINT [ "/tmp/wordpress-setup.sh" ]
+
+CMD [ "php-fpm8", "--nodaemonize" ]
