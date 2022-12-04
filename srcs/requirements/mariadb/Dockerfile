@@ -6,9 +6,9 @@ RUN apk update && apk upgrade && apk add --no-cache \
     mariadb-common && \
     rm -rf /var/cache/apk/*
 
-COPY ./mariadb-setup.sh /tmp/run.sh
-RUN chmod +x /tmp/run.sh
+COPY docker-entrypoint.sh /usr/local/bin/
+RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 
-ENTRYPOINT [ "/tmp/run.sh" ]
+ENTRYPOINT [ "docker-entrypoint.sh" ]
 
 CMD [ "/usr/bin/mysqld", "--user=mysql", "--console" ]
