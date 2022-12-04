@@ -10,6 +10,7 @@ RUN apk update && apk upgrade && apk add --no-cache \
     mariadb-client \
     php8 \
     php8-fpm \
+    # https://github.com/docker-library/wordpress/blob/69b6ba67e1d4771027d9089cb1d4cc974b27d773/latest/php8.1/fpm-alpine/Dockerfile#L39
     php8-bcmath \
     php8-exif \
     php8-gd \
