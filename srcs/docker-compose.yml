@@ -53,6 +53,17 @@ services:
             WP_DB_NAME: ${WP_DB_NAME}
             WP_DB_USER: ${WP_DB_USER}
             WP_DB_PASSWORD: ${WP_DB_PASSWORD}
+    
+    adminer:
+        image: adminer # tmp
+        container_name: adminer
+        restart: always
+        depends_on:
+            - mariadb
+        ports:
+            - "8080:8080"
+        networks:
+            - private
 
 networks:
     public:
