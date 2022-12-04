@@ -9,4 +9,6 @@ RUN apk update && apk upgrade && apk add --no-cache \
 COPY ./mariadb-setup.sh /tmp/run.sh
 RUN chmod +x /tmp/run.sh
 
-CMD [ "sh", "/tmp/run.sh" ]
+ENTRYPOINT [ "/tmp/run.sh" ]
+
+CMD [ "/usr/bin/mysqld", "--user=mysql", "--console" ]
