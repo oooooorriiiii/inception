@@ -34,14 +34,10 @@ if [ ! -f "/var/www/html/$WP_FILE_ONINSTALL" ]; then
         --allow-root
 
 	# redis
-    # sed -i "40i define('WP_REDIS_HOST', '$REDIS_HOST');" wp-config.php
-    # sed -i "41i define('WP_REDIS_PORT', 6379);" wp-config.php
-    # sed -i "42i define('WP_REDIS_PASSWORD', '$REDIS_PWD');" wp-config.php
-    # sed -i "43i define('WP_REDIS_TIMEOUT', 1);" wp-config.php
-    # sed -i "44i define('WP_REDIS_READ_TIMEOUT', 1);" wp-config.php
-    # sed -i "45i define('WP_REDIS_DATABASE', 0);\n" wp-config.php
-	# sed -i "46i define('WP_CACHE', true);" wp-config.php
-    # wp plugin install redis-cache --activate --allow-root
+    sed -i "40i define('WP_REDIS_HOST', 'redis');" wp-config.php
+    sed -i "41i define('WP_REDIS_PORT', 6379);" wp-config.php
+	sed -i "46i define('WP_CACHE', true);" wp-config.php
+    wp plugin install redis-cache --activate --allow-root
 
 	# update plugins
     wp plugin update --all --allow-root
@@ -51,7 +47,7 @@ if [ ! -f "/var/www/html/$WP_FILE_ONINSTALL" ]; then
 fi
 
 # enable redis
-# wp redis enable --allow-root
+wp redis enable --allow-root
 
 echo "[INFO] starting php-fpm..."
 mkdir -p /var/run/php-fpm7
