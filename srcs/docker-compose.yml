@@ -63,8 +63,7 @@ services:
         networks:
             - private
     redis:
-        # build: requirements/bonus/redis
-        image: redis:latest
+        build: requirements/bonus/redis
         container_name: redis
         depends_on:
             - wordpress
