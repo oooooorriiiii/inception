@@ -1,8 +1,12 @@
-all: stop load
+all: stop run
 
-load:
+build:
 	docker-compose -f ./srcs/docker-compose.yml build --no-cache
+
+up:
 	docker-compose -f ./srcs/docker-compose.yml --env-file ./srcs/.env up
+
+run: build up
 
 stop:
 	docker-compose -f ./srcs/docker-compose.yml --env-file ./srcs/.env down
@@ -15,9 +19,9 @@ prune: clean
 
 # docker volume rm inception_db_data inception_web_data
 
-re: prune load
+re: prune run
 
-.PHONY: all load stop clean re
+.PHONY: all build up run stop clean re
 
 
 # DEBUG ##########################################################
