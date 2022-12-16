@@ -1,12 +1,17 @@
-all: stop run
+all: run
 
 build:
 	docker-compose -f ./srcs/docker-compose.yml build --no-cache
 
 up:
+	docker-compose -f ./srcs/docker-compose.yml --env-file ./srcs/.env up -d
+
+up_debug:
 	docker-compose -f ./srcs/docker-compose.yml --env-file ./srcs/.env up
 
 run: build up
+
+run_debug: build up_debug
 
 stop:
 	docker-compose -f ./srcs/docker-compose.yml --env-file ./srcs/.env down
@@ -21,7 +26,10 @@ prune: clean
 
 re: prune run
 
-.PHONY: all build up run stop clean re
+.PHONY: all build up up_debug run run_debug stop clean prune re
+
+
+# Utils
 
 
 # DEBUG ##########################################################
