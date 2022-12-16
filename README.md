@@ -24,7 +24,6 @@ ${HOME}/data/web_data
 
 レビュー後に削除してください．
 
-
 ## Make
 
 `make run`で build から up までが完了するようになっています．
@@ -39,7 +38,12 @@ ${HOME}/data/web_data
 
 web_data ディレクトリになにかファイルを作成すると，`autoindex` のページにファイルが追加されていることが確認できます．
 
+## TLS
+
+[Google Chromeで表示サイトのTLSバージョンを確認する方法](https://www.sukicomi.net/2021/03/chrome_tls_kakunin.html)
+
 ## php-fpm
+
 `for-review/php-fpm-test.php` ファイルを `${HOME}/data/web_data/` にコピーしてください．このファイルにアクセスすることで php による fast-cgi の簡単なテストが実行され，パラメータが取得できます．
 
 ## Redis
