@@ -7,7 +7,7 @@ services:
         build: ./requirements/nginx
         container_name: nginx
         volumes:
-            - /home/ymori/data/web_data:/var/www/html
+            - ${HOME}/data/web_data:/var/www/html
         networks:
             - public
         ports:
@@ -19,7 +19,7 @@ services:
         build: ./requirements/wordpress
         container_name: wordpress
         volumes:
-            - /home/ymori/data/web_data:/var/www/html
+            - ${HOME}/data/web_data:/var/www/html
         networks:
             - public
             - private
@@ -41,7 +41,7 @@ services:
         build: ./requirements/mariadb
         container_name: mariadb
         volumes:
-            - /home/ymori/data/db_data:/var/lib/mysql
+            - ${HOME}/data/db_data:/var/lib/mysql
         networks:
             - private
         restart: always
@@ -71,7 +71,7 @@ services:
         networks:
             - private
         volumes:
-            - /home/ymori/data/redis_data:/data
+            - ${HOME}/data/redis_data:/data
         ports:
             - "6379:6379"
         expose:
