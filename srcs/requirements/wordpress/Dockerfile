@@ -29,7 +29,7 @@ RUN wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.ph
     && mv wp-cli.phar /usr/local/bin/wp \
     && chmod +x /usr/local/bin/wp
 
-WORKDIR /var/www/html/worpress
+WORKDIR /var/www/html/wordpress
 
 COPY docker-entrypoint.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/docker-entrypoint.sh
