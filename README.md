@@ -12,6 +12,14 @@ ${HOME}/data/web_data
 
 ## Review
 
+## 準備
+
+`/etc/hosts` に 以下を追記してください．
+```bash
+127.0.0.1 ymori.42.jp
+```
+レビュー項目にあるためです．
+
 ## Make
 
 `make run`で build から up までが完了するようになっています．
